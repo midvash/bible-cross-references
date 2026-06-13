@@ -78,3 +78,19 @@ Released under **CC-BY 4.0**. Attribution to **Midvash** (with a link to [midvas
 
 - **[bible-data](https://github.com/midvash/bible-data)** — 33 public-domain Bible versions, same `bookId` scheme.
 - **[Midvash](https://midvash.com)** — the Bible reader and study platform this dataset powers.
+
+## The Midvash ecosystem
+
+Part of [**Midvash**](https://midvash.com) — a free Bible reading & study platform. All pieces are open and interlink:
+
+| | |
+|---|---|
+| 📖 **Reader** | [midvash.com](https://midvash.com) — web app, 9 languages |
+| 🔌 **API** | [api.midvash.com](https://api.midvash.com) · [`bible-api`](https://github.com/midvash/bible-api) |
+| 🤖 **MCP server** | [mcp.midvash.com](https://mcp.midvash.com) · [`bible-mcp`](https://github.com/midvash/bible-mcp) |
+| 🧩 **WordPress plugin** | [midvash.app/wordpress-plugin](https://midvash.app/wordpress-plugin) · [`bible-by-midvash`](https://github.com/midvash/bible-by-midvash) |
+| 🧩 **EmDash plugin** | [midvash.app/emdash-plugin](https://midvash.app/emdash-plugin) · [`emdash-plugin-bible`](https://github.com/midvash/emdash-plugin-bible) |
+| 🌐 **Chrome extension** | [midvash.app/chrome-extension](https://midvash.app/chrome-extension) · [`bible-chrome-extension`](https://github.com/midvash/bible-chrome-extension) |
+| 📦 **Open data** | [`bible-data`](https://github.com/midvash/bible-data) · [`bible-data-js`](https://github.com/midvash/bible-data-js) · [`bible-cross-references`](https://github.com/midvash/bible-cross-references) |
+
+<sub>Free & open, built by [Midvash](https://midvash.com).</sub>
