@@ -1,5 +1,7 @@
 # bible-cross-references
 
+> 🌐 **English** · [Português (BR)](./README.pt-BR.md) · [Español](./README.es.md)
+
 **453 curated thematic cross-references across the Bible** — each one connects a source verse to related passages with a short description.
 
 Useful for Bible study, search-engine snippets, and any app that wants to surface "verses on the same theme" without ingesting the much larger but uncurated OpenBible.info dataset.
