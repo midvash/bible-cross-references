@@ -31,12 +31,22 @@ console.log(data.references[0]);
 // }
 ```
 
+```js
+// Búsqueda por versículo de origen (`indexed.bySource`):
+const ids = data.indexed.bySource['1:1:27'] ?? [];       // Genesis 1:27
+const refs = ids.map((id) => data.references.find((r) => r.id === id));
+```
+
 ## Schema
 
 ```ts
 interface Dataset {
   references: CrossReference[];
-  indexed: Record<string, number[]>;  // "bookId-chapter-verse" → reference ids
+  indexed: {
+    bySource: Record<string, number[]>;  // "bookId:chapter:verse" (e.g. "1:1:27") → reference ids
+    byTarget: Record<string, number[]>;  // same key, for every target verse → reference ids
+    bySlug: Record<Locale, Record<string, number>>;  // slug → reference id, per locale
+  };
 }
 
 interface CrossReference {
@@ -48,18 +58,17 @@ interface CrossReference {
 }
 
 interface VerseRef {
-  bookId: number;          // 1–66, see https://github.com/midvash/bible-data#book-ids
+  bookId: number;          // 1–66, see https://github.com/midvash/bible-data/blob/main/SCHEMA.md#book-identifiers
   chapter: number;
   verse: number;
+  verseEnd?: number;       // last verse of a range (e.g. Genesis 9:26-27); absent for a single verse
   names: I18nString;       // localized book name
   reference: I18nString;   // localized reference, e.g. "Genesis 1:27"
 }
 
-type I18nString = {
-  'pt-br': string;
-  'en': string;
-  'es': string;
-};
+type Locale = 'pt-br' | 'en' | 'es';
+
+type I18nString = Record<Locale, string>;
 ```
 
 Los IDs de libro siguen el canon protestante de 1–66 usado por [bible-data](https://github.com/midvash/bible-data).
@@ -74,11 +83,13 @@ Ambos se complementan.
 
 ## Licencia
 
-Publicado bajo **CC-BY 4.0**. Atribución a **Midvash** (con un enlace a [midvash.com](https://midvash.com)) al redistribuir o construir sobre estos datos.
+Licenciado bajo la [Creative Commons Atribución 4.0 Internacional](https://creativecommons.org/licenses/by/4.0/deed.es) (CC BY 4.0); texto legal completo en [LICENSE](./LICENSE).
+
+Copyright (c) 2026 Midvash. Al compartir o adaptar estos datos, da crédito a **Midvash** con un enlace a [midvash.com](https://midvash.com), enlaza la licencia e indica si hiciste cambios.
 
 ## Proyectos relacionados
 
-- **[bible-data](https://github.com/midvash/bible-data)** — 33 versiones bíblicas de dominio público, mismo esquema de `bookId`.
+- **[bible-data](https://github.com/midvash/bible-data)** — 32 versiones bíblicas abiertas, mismo esquema de `bookId`.
 - **[Midvash](https://midvash.com)** — el lector bíblico y la plataforma de estudio que este dataset impulsa.
 
 ## El ecosistema Midvash
@@ -88,12 +99,12 @@ Parte de [**Midvash**](https://midvash.com) — una plataforma gratuita de lectu
 | | |
 |---|---|
 | 📖 **Lector (web)** | [midvash.com](https://midvash.com) — 9 idiomas |
-| 📱 **App iOS** | [midvash.app/ios](https://midvash.app/ios) |
+| 📱 **App iOS** | [midvash.com/ios](https://midvash.com/ios) |
 | 🔌 **API** | [api.midvash.com](https://api.midvash.com) · [`bible-api`](https://github.com/midvash/bible-api) |
 | 🤖 **Servidor MCP** | [mcp.midvash.com](https://mcp.midvash.com) · [`bible-mcp`](https://github.com/midvash/bible-mcp) |
-| 🧩 **Plugin de WordPress** | [midvash.app/wordpress-plugin](https://midvash.app/wordpress-plugin) · [`bible-wordpress-plugin`](https://github.com/midvash/bible-wordpress-plugin) |
-| 🧩 **Plugin de EmDash** | [midvash.app/emdash-plugin](https://midvash.app/emdash-plugin) · [`emdash-plugin-bible`](https://github.com/midvash/emdash-plugin-bible) |
-| 🌐 **Extensión de Chrome** | [midvash.app/chrome-extension](https://midvash.app/chrome-extension) · [`bible-chrome-extension`](https://github.com/midvash/bible-chrome-extension) |
+| 🧩 **Plugin de WordPress** | [midvash.com/wordpress-plugin](https://midvash.com/wordpress-plugin) · [`bible-wordpress-plugin`](https://github.com/midvash/bible-wordpress-plugin) |
+| 🧩 **Plugin de EmDash** | [midvash.com/emdash-plugin](https://midvash.com/emdash-plugin) · [`bible-emdash-plugin`](https://github.com/midvash/bible-emdash-plugin) |
+| 🌐 **Extensión de Chrome** | [midvash.com/chrome-extension](https://midvash.com/chrome-extension) · [`bible-chrome-extension`](https://github.com/midvash/bible-chrome-extension) |
 | 📦 **Datos abiertos** | [`bible-data`](https://github.com/midvash/bible-data) · [`bible-data-js`](https://github.com/midvash/bible-data-js) · [`bible-cross-references`](https://github.com/midvash/bible-cross-references) |
 
-<sub>Gratuito y abierto, hecho por [Midvash](https://midvash.com) · [midvash.com](https://midvash.com) · [midvash.app](https://midvash.app)</sub>
+<sub>Gratuito y abierto, hecho por [Midvash](https://midvash.com)</sub>
